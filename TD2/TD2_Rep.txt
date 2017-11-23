@@ -1,0 +1,37 @@
+Exercice 2 :
+Chaque Thread renvoie un entier correspondant à 5*Math.random()*1000 puis dors (sleep).
+Le programme lance un certains nombres de thread(arg[0]) un certains nombre de fois (arg[1]).
+
+L'affichage de la valeur de la durée des thread inactifs et l'ordre d'exécution entre les différents thread sont non déterministes, cependant l'incrément de chacun des thread affiché est déterministe.
+
+
+2.4.2. Exemple canonique d'inconsistance grave :
+
+Que fait le programme, que fait chaque thread ?
+Ce programme crée 2 thread qui sont mis en concurrences (l'un incrémente et l'autre décremente 1*10^6). 
+
+Quelle devrait être la valeur stockée par l’ObjetEntier nommé Compteur à la fin du calcul ?
+Normalement la valeur stockée par l'ObjetEntier doit être 0 à la fin du calcul.
+
+Expliquer ce qui arrive, ou se trouve la concurrence ?
+Les thread tache1 et tache2 intéragissent avec le même objet (Compteur). Toutes les modifications ne sont donc pas prises en compte.
+
+Comment pourrait-on faire pour que le calcul retourne 00 et cela de façon certaine ?
+Ajouter synchronized à la fonction add.
+Ajouter join() après chaque start() ainsi la valeur affichée sera toujours après l'exécution de tache 1 et 2.
+
+Exercice 4 :
+Quelle méthode pose problème dans Petit_Job ? La rendre synchrone.
+La méthode add().
+
+Observer le résultat ? Pourquoi le thread principal n’affiche t’il pas 00?
+car le thread principal s'affiche avant la fin du thread tache1 et tache2.
+
+Ajouter une longue boucle (:math:`10^9 ` tours) juste avant la fin du programme principal et afficher à nouveau le compteur, que concluez vous ?
+L'exécution du programme est beaucoup plus longue.
+
+Exercice 5 :
+Ici, pour gérer plusieurs thread à la fois la méthode synchronized est appliqué sur les méthodes accept et leave (de la classe Parking). En effet, cela permet de gérer certaines situations comme : Deux Voitures (Thread) qui souhaitent entrer (accept) dans le Parking en même temps,... 
+
+
+
