@@ -5,8 +5,9 @@ package ex3_1;
  * MIAGE Student (M1)
  */
 public class GenClients {
+    public static int nbClients = 7;
     public static void main(String[] args) {
-        for (int i = 0; i < 8; i++) {
+        for (int i = 1; i <= nbClients; i++) {
             String mon_id = String.format("Client [[%d]]", i);
             Client client_courant = new Client(mon_id);
             Thread cliThread= new Thread(client_courant);

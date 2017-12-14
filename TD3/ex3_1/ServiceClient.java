@@ -9,11 +9,15 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import static ex3_1.GenClients.nbClients;
+
 public class ServiceClient  implements Runnable{
 
-    private  Socket uneConnexion;
+    private Socket uneConnexion;
     private String Finish=""+(char) 4;
-    private  String id;
+    private String id;
+    private static int compteur;
+    public static boolean status = true;
 
     public ServiceClient(Socket la_connection, String mid)
     {
@@ -23,17 +27,24 @@ public class ServiceClient  implements Runnable{
     }
 
 
-    private void interrupt(){
+    private void interrupt() {
         try{
             if (uneConnexion != null) {
+                //Thread.sleep(10000);
                 System.out.format(">>>>>Interruption prévue pour %s\n", id);
+                compteur = compteur + 1;
                 uneConnexion.close();
             }
+            if(compteur==nbClients){
+                System.out.println("============   STATUS : FALSE   =================");
+                status = false;
+            }
+            System.out.println("||||COMPTEUR|||||||  "+compteur+"  ||||||||NBCLIENTS|||||||||  "+nbClients);
         }
         catch (IOException e) {
             e.printStackTrace();
         }
-        return;
+
     }
 
     public void run(){
@@ -78,6 +89,11 @@ public class ServiceClient  implements Runnable{
                 out.println("Fermeture connexion");
                 interrupt();
                 return;
+            }
+            if(compteur==nbClients){
+                System.out.println("============   STATUS : FALSE   =================");
+                status = false;
+
             }
             line_num++;
         }

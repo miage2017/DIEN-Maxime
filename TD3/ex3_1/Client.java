@@ -28,10 +28,12 @@ public class Client implements Runnable {
         Socket la_connection = null;
         try{
             la_connection = new Socket(servIP, port);
+            la_connection.setSoTimeout(10);
             in = new BufferedReader(new InputStreamReader(la_connection.getInputStream()));
             out = new PrintWriter(la_connection.getOutputStream(), true);
         }catch (IOException e) {
-            System.out.println(e);System.exit(-1);
+            System.out.println(e);
+            System.exit(-1);
         }
         System.out.format("%s : Contact reussi avec %s:%d\n", id, servIP, port);
         for(int i = 0; i < 10; i++) {
@@ -47,6 +49,7 @@ public class Client implements Runnable {
         if (la_connection !=null)
             try {
                 la_connection.close();
+
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import static ex3_1.ServiceClient.status;
+
 /**
  * Created by M.Dien on 21/11/2017.
  * MIAGE Student (M1)
@@ -31,9 +33,20 @@ public class Repartiteur extends ServerSocket {
         }
     }
 
+    public void stopServ(){
+        while(true){
+            if(status == false){
+                System.out.println("TTTTTTTTTTTTEEEEEEEESSSSSSSSSSSSSTTTTTTTTTTTTTT");
+                System.exit(0);
+            }
+        }
+    }
+
     public static void main(String[] args) throws IOException {
         Repartiteur gererConnexion = new Repartiteur();
         gererConnexion.execute();
+        gererConnexion.stopServ();
+
     }
 
 }
